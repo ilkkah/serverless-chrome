@@ -58,6 +58,7 @@ export default class Launcher {
   }
 
   prepare () {
+    debug('prepare')
     this.userDataDir = this.options.userDataDir || makeTempDir()
     this.outFile = fs.openSync(`${this.userDataDir}/chrome-out.log`, 'a')
     this.errFile = fs.openSync(`${this.userDataDir}/chrome-err.log`, 'a')
@@ -119,6 +120,8 @@ export default class Launcher {
 
   async spawn () {
     const spawnPromise = new Promise(async (resolve) => {
+      debug('spawn...')
+
       if (this.chrome) {
         debug(`Chrome already running with pid ${this.chrome.pid}.`)
         return resolve(this.chrome.pid)
@@ -139,6 +142,8 @@ export default class Launcher {
         chrome.chrome.unref()
       }
 
+      debug('Launcher', `Writing pidfile.`)
+
       fs.writeFileSync(this.pidFile, chrome.pid.toString())
 
       debug('Launcher', `Chrome running with pid ${chrome.pid} on port ${this.port}.`)
@@ -152,6 +157,8 @@ export default class Launcher {
   }
 
   async launch () {
+    debug('Launching Chrome', this.pid)
+
     if (this.requestedPort !== 0) {
       this.port = this.requestedPort
 

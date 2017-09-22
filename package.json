@@ -1,6 +1,6 @@
 {
   "name": "serverless-chrome-ilkkah",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Run headless Chrome, serverless-ly",
   "main": "handler.js",
   "engines": {
@@ -37,7 +37,9 @@
     "url": "https://github.com/adieuadieu/serverless-chrome/issues"
   },
   "homepage": "https://github.com/adieuadieu/serverless-chrome",
-  "dependencies": {},
+  "dependencies": {
+    "extract-zip": "^1.6.5"
+  },
   "devDependencies": {
     "ava": "^0.22.0",
     "babel-core": "^6.26.0",
