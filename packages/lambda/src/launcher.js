@@ -65,6 +65,12 @@ export default class Launcher {
     this.tmpDirandPidFileReady = true
   }
 
+  closed () {
+    this.chrome = undefined
+    this.pid = undefined
+    this.pidFile = ''
+  }
+
   // resolves if ready, rejects otherwise
   isReady () {
     return new Promise((resolve, reject) => {
@@ -123,6 +129,8 @@ export default class Launcher {
       })
 
       this.chrome = chrome
+
+      chrome.on('close', this.closed)
 
       // unref the chrome instance, otherwise the lambda process won't end correctly
       if (chrome.chrome) {
