@@ -1,6 +1,6 @@
 {
   "name": "serverless-chrome-ilkkah",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Run headless Chrome, serverless-ly",
   "main": "handler.js",
   "engines": {
@@ -15,7 +15,8 @@
     "ava": "ava",
     "lint": "npm run lint:eslint -s",
     "lint:eslint": "eslint $npm_package_config_jsSrc",
-    "coverage": "nyc report"
+    "coverage": "nyc report",
+    "postinstall": "node packages/lambda/scripts/postinstall.js"
   },
   "repository": {
     "type": "git",
