@@ -2,6 +2,7 @@ import { execSync } from 'child_process'
 
 export function clearConnection (client) {
   if (client) {
+  	debug('** clearConnection **')
     client.removeAllListeners()
     client.end()
     client.destroy()

@@ -81,10 +81,10 @@ export default async function launch (
     Which means you could log chrome output to cloudwatch directly
     without unreffing chrome.
   */
-  if (chromeInstance.chrome) {
-    chromeInstance.chrome.removeAllListeners()
-    chromeInstance.chrome.unref()
-  }
+  // if (chromeInstance.chrome) {
+  //   chromeInstance.chrome.removeAllListeners()
+  //   chromeInstance.chrome.unref()
+  // }
 
   return {
     pid: chromeInstance.pid,

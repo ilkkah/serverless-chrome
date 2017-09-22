@@ -137,10 +137,10 @@ export default class Launcher {
       chrome.on('close', this.closed)
 
       // unref the chrome instance, otherwise the lambda process won't end correctly
-      if (chrome.chrome) {
-        chrome.chrome.removeAllListeners()
-        chrome.chrome.unref()
-      }
+      // if (chrome.chrome) {
+      //   chrome.chrome.removeAllListeners()
+      //   chrome.chrome.unref()
+      // }
 
       debug('Launcher', `Writing pidfile.`)
 
