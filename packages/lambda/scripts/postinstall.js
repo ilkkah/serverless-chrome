@@ -54,8 +54,7 @@ function downloadChrome() {
 
   console.log('Downloading precompiled headless Chrome binary for AWS Lambda.')
 
-  return download(ZIP_URL, DOWNLOAD_PATH)
-    .then(() => extractFile(DOWNLOAD_PATH, EXTRACT_PATH))
+  return extractFile(DOWNLOAD_PATH, EXTRACT_PATH)
     .then(() => unlink(DOWNLOAD_PATH))
     .then(() => console.log('Completed Chrome download.'))
     .catch(error => console.error(error))
@@ -69,8 +68,7 @@ function downloadNss() {
 
   console.log('Downloading precompiled NSS library and binaries for AWS Lambda.')
 
-  return download(ZIP_URL, DOWNLOAD_PATH)
-    .then(() => extractFile(DOWNLOAD_PATH, EXTRACT_PATH))
+  return extractFile(DOWNLOAD_PATH, EXTRACT_PATH)
     .then(() => unlink(DOWNLOAD_PATH))
     .then(() => rename(path.join(EXTRACT_PATH, 'dist'), path.join(EXTRACT_PATH, 'nss')))
     .then(() => console.log('Completed NSS download.'))
