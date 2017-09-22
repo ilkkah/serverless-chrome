@@ -1,5 +1,5 @@
 {
-  "name": "@serverless-chrome/lambda",
+  "name": "@serverless-chrome-ilkkah/lambda",
   "version": "1.0.0-5",
   "description": "Run headless Chrome/Chromium on AWS Lambda",
   "author": "Marco Lüthy",
