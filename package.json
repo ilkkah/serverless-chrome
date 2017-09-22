@@ -1,6 +1,6 @@
 {
   "name": "serverless-chrome-ilkkah",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Run headless Chrome, serverless-ly",
   "main": "handler.js",
   "engines": {
