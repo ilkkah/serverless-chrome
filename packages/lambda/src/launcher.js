@@ -84,7 +84,7 @@ export default class Launcher {
       })
 
       client.once('connect', () => {
-        clearConnection(client)
+        // clearConnection(client)
         resolve()
       })
     })
