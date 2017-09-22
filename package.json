@@ -1,5 +1,5 @@
 {
-  "name": "serverless-chrome",
+  "name": "serverless-chrome-ilkkah",
   "version": "1.0.0",
   "description": "Run headless Chrome, serverless-ly",
   "main": "handler.js",
