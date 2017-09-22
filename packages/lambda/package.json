@@ -16,6 +16,8 @@
   "files": [
     "dist/bundle.cjs.js",
     "dist/bundle.es.js",
+    "dist/headless_shell",
+    "dist/libosmesa.so",
     "scripts/postinstall.js"
   ],
   "repository": "git@github.com:adieuadieu/serverless-chrome.git",
