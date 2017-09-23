@@ -67,7 +67,10 @@ export default class Launcher {
   }
 
   closed () {
-    debug('** Chrome closed **')
+    debug('** Chrome closed **', this.pid)
+    delete this.chrome
+    delete this.pid
+    delete this.pidFile
     this.chrome = undefined
     this.pid = undefined
     this.pidFile = ''
