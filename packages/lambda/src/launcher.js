@@ -15,7 +15,7 @@ import { delay, debug, makeTempDir } from './utils'
 import DEFAULT_CHROME_FLAGS from './flags'
 
 const CHROME_PATH = path.resolve(__dirname, './headless_shell')
-let port = 3000
+var port = 3000
 
 export default class Launcher {
   constructor (options = {}) {
@@ -24,6 +24,8 @@ export default class Launcher {
       chromeFlags = [],
       startingUrl = 'about:blank'
     } = options
+
+    port = port + 1
 
     this.tmpDirandPidFileReady = false
     this.pollInterval = 500
@@ -34,7 +36,7 @@ export default class Launcher {
     this.chromePath = CHROME_PATH
     this.chromeFlags = []
     this.userDataDir = ''
-    this.port = port + 1
+    this.port = port
     this.pid = null
     this.chrome = undefined
     this.client = undefined
@@ -122,7 +124,7 @@ export default class Launcher {
 
   async spawn () {
     const spawnPromise = new Promise(async (resolve) => {
-      debug('spawn...')
+      debug('spawn...', this.flags)
 
       if (this.chrome) {
         debug(`Chrome already running with pid ${this.chrome.pid}.`)

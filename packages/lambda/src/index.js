@@ -4,7 +4,6 @@ import LambdaChromeLauncher from './launcher'
 import { debug } from './utils'
 import DEFAULT_CHROME_FLAGS from './flags'
 
-const DEVTOOLS_PORT = 9222
 const DEVTOOLS_HOST = 'http://127.0.0.1'
 
 // Prepend NSS related libraries and binaries to the library path and path respectively on lambda.
@@ -20,7 +19,7 @@ if (process.env.AWS_EXECUTION_ENV) {
 
 
 export default async function launch (
-  { flags = [], chromePath, port = DEVTOOLS_PORT, forceLambdaLauncher = false } = {}
+  { flags = [], chromePath, forceLambdaLauncher = false } = {}
 ) {
   let chromeInstance;
   const chromeFlags = [...DEFAULT_CHROME_FLAGS, ...flags];
