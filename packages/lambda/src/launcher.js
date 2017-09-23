@@ -15,7 +15,7 @@ import { delay, debug, makeTempDir } from './utils'
 import DEFAULT_CHROME_FLAGS from './flags'
 
 const CHROME_PATH = path.resolve(__dirname, './headless_shell')
-var port = 3000
+var PORT = 3000
 
 export default class Launcher {
   constructor (options = {}) {
@@ -25,7 +25,7 @@ export default class Launcher {
       startingUrl = 'about:blank'
     } = options
 
-    port = port + 1
+    PORT = PORT + 1
 
     this.tmpDirandPidFileReady = false
     this.pollInterval = 500
@@ -36,7 +36,7 @@ export default class Launcher {
     this.chromePath = CHROME_PATH
     this.chromeFlags = []
     this.userDataDir = ''
-    this.port = port
+    this.port = PORT
     this.pid = null
     this.chrome = undefined
     this.client = undefined
