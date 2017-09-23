@@ -18,35 +18,31 @@ if (process.env.AWS_EXECUTION_ENV) {
 }
 */
 
-// persist the instance across invocations
-// when the *lambda* container is reused.
-let chromeInstance
 
 export default async function launch (
   { flags = [], chromePath, port = DEVTOOLS_PORT, forceLambdaLauncher = false } = {}
 ) {
+  let chromeInstance
   const chromeFlags = [...DEFAULT_CHROME_FLAGS, ...flags]
 
-  if (!chromeInstance) {
-    if (process.env.AWS_EXECUTION_ENV || forceLambdaLauncher) {
-      chromeInstance = new LambdaChromeLauncher({
-        chromePath,
-        chromeFlags,
-        port,
-      })
-    } else {
-      // This let's us use chrome-launcher in local development,
-      // but omit it from the lambda function's zip artefact
-      try {
-        // eslint-disable-next-line
-        const { Launcher: LocalChromeLauncher } = require('chrome-launcher')
-        chromeInstance = new LocalChromeLauncher({ chromePath, chromeFlags: flags, port })
-      } catch (error) {
-        throw new Error(
-          '@serverless-chrome/lambda: Unable to find "chrome-launcher". ' +
-            "Make sure it's installed if you wish to develop locally."
-        )
-      }
+  if (process.env.AWS_EXECUTION_ENV || forceLambdaLauncher) {
+    chromeInstance = new LambdaChromeLauncher({
+      chromePath,
+      chromeFlags,
+      port,
+    })
+  } else {
+    // This let's us use chrome-launcher in local development,
+    // but omit it from the lambda function's zip artefact
+    try {
+      // eslint-disable-next-line
+      const { Launcher: LocalChromeLauncher } = require('chrome-launcher')
+      chromeInstance = new LocalChromeLauncher({ chromePath, chromeFlags: flags, port })
+    } catch (error) {
+      throw new Error(
+        '@serverless-chrome/lambda: Unable to find "chrome-launcher". ' +
+          "Make sure it's installed if you wish to develop locally."
+      )
     }
   }
 
