@@ -33,7 +33,6 @@ export default class Launcher {
     this.errFile = null
     this.chromePath = CHROME_PATH
     this.chromeFlags = []
-    this.requestedPort = 0
     this.userDataDir = ''
     this.port = 9222
     this.pid = null
@@ -165,16 +164,6 @@ export default class Launcher {
 
     if (this.requestedPort !== 0) {
       this.port = this.requestedPort
-
-      // If an explict port is passed first look for an open connection...
-      try {
-        return await this.isReady()
-      } catch (err) {
-        debug(
-          'ChromeLauncher',
-          `No debugging port found on port ${this.port}, launching a new Chrome.`
-        )
-      }
     }
 
     if (!this.tmpDirandPidFileReady) {
