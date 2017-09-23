@@ -22,8 +22,8 @@ if (process.env.AWS_EXECUTION_ENV) {
 export default async function launch (
   { flags = [], chromePath, port = DEVTOOLS_PORT, forceLambdaLauncher = false } = {}
 ) {
-  let chromeInstance
-  const chromeFlags = [...DEFAULT_CHROME_FLAGS, ...flags]
+  let chromeInstance;
+  const chromeFlags = [...DEFAULT_CHROME_FLAGS, ...flags];
 
   if (process.env.AWS_EXECUTION_ENV || forceLambdaLauncher) {
     chromeInstance = new LambdaChromeLauncher({
@@ -68,7 +68,7 @@ export default async function launch (
 
   const launchTime = Date.now() - launchStartTime
 
-  debug(`It took ${launchTime}ms to spawn chrome.`)
+  debug(`It took ${launchTime}ms to spawn chrome, pid ${chromeInstance.pid}.`)
 
   // unref the chrome instance, otherwise the lambda process won't end correctly
   /* @TODO: make this an option?
