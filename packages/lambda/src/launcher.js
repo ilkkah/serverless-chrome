@@ -11,7 +11,7 @@ import path from 'path'
 import fs from 'fs'
 import { execSync, spawn } from 'child_process'
 import net from 'net'
-import { delay, debug, makeTempDir, clearConnection } from './utils'
+import { delay, debug, makeTempDir } from './utils'
 import DEFAULT_CHROME_FLAGS from './flags'
 
 const CHROME_PATH = path.resolve(__dirname, './headless_shell')
@@ -83,7 +83,7 @@ export default class Launcher {
       this.client = net.createConnection(this.port)
 
       this.client.once('error', (error) => {
-        clearConnection(this.client)
+        this.clearConnection()
         reject(error)
       })
 
@@ -196,7 +196,7 @@ export default class Launcher {
 
         try {
           process.kill(-this.chrome.pid)
-          clearConnection(this.client);
+          this.clearConnection();
         } catch (err) {
           debug(`Chrome could not be killed ${err.message}`)
         }
@@ -207,6 +207,16 @@ export default class Launcher {
         resolve()
       }
     })
+  }
+
+  clearConnection () {
+    if (this.client) {
+      debug('** clearConnection **', this.pid, this.chrome && this.chrome.pid)
+      this.client.removeAllListeners()
+      this.client.end()
+      this.client.destroy()
+      this.client.unref()
+    }
   }
 
   destroyTemp () {

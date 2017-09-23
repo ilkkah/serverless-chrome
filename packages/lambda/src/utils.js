@@ -1,15 +1,5 @@
 import { execSync } from 'child_process'
 
-export function clearConnection (client) {
-  if (client) {
-  	debug('** clearConnection **')
-    client.removeAllListeners()
-    client.end()
-    client.destroy()
-    client.unref()
-  }
-}
-
 export function debug (...args) {
   return process.env.DEBUG ? console.log('@serverless-chrome/lambda', ...args) : undefined
 }
