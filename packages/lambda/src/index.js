@@ -27,8 +27,7 @@ export default async function launch (
   if (process.env.AWS_EXECUTION_ENV || forceLambdaLauncher) {
     chromeInstance = new LambdaChromeLauncher({
       chromePath,
-      chromeFlags,
-      port,
+      chromeFlags
     })
   } else {
     // This let's us use chrome-launcher in local development,
