@@ -38,6 +38,7 @@ export default class Launcher {
     this.port = 9222
     this.pid = null
     this.chrome = undefined
+    this.client = undefined
 
     this.options = options
     this.startingUrl = startingUrl
@@ -79,14 +80,14 @@ export default class Launcher {
   // resolves if ready, rejects otherwise
   isReady () {
     return new Promise((resolve, reject) => {
-      const client = net.createConnection(this.port)
+      this.client = net.createConnection(this.port)
 
-      client.once('error', (error) => {
-        clearConnection(client)
+      this.client.once('error', (error) => {
+        clearConnection(this.client)
         reject(error)
       })
 
-      client.once('connect', () => {
+      this.client.once('connect', () => {
         // clearConnection(client)
         resolve()
       })
@@ -140,10 +141,10 @@ export default class Launcher {
       chrome.on('close', this.closed)
 
       // unref the chrome instance, otherwise the lambda process won't end correctly
-      // if (chrome.chrome) {
-      //   chrome.chrome.removeAllListeners()
-      //   chrome.chrome.unref()
-      // }
+      if (chrome.chrome) {
+        chrome.chrome.removeAllListeners()
+        chrome.chrome.unref()
+      }
 
       debug('Launcher', `Writing pidfile.`)
 
@@ -160,7 +161,7 @@ export default class Launcher {
   }
 
   async launch () {
-    debug('Launching Chrome', this.pid)
+    debug('Launching Chrome', this.pid, this.chrome && this.chrome.pid)
 
     if (this.requestedPort !== 0) {
       this.port = this.requestedPort
@@ -195,6 +196,7 @@ export default class Launcher {
 
         try {
           process.kill(-this.chrome.pid)
+          clearConnection(this.client);
         } catch (err) {
           debug(`Chrome could not be killed ${err.message}`)
         }
