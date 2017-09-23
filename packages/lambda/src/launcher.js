@@ -192,7 +192,7 @@ export default class Launcher {
           this.destroyTemp().then(resolve)
         })
 
-        debug('Killing all Chrome Instances')
+        debug('Kill Chrome', this.chrome && this.chrome.pid)
 
         try {
           process.kill(-this.chrome.pid)
